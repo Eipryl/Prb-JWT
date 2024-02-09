@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserModel } from './user.model';
-import pg from 'pg';
 
 @UseGuards()
 @Controller('user')
@@ -40,15 +39,5 @@ export class UserController {
   @Delete(':id')
   async delete() {
     return this.service.delete();
-  }
-
-  @Get('date')
-  async getDate() {
-    const pool = await new pg.Pool({
-      connectionString:
-        'postgres://eipryl:EcK4BSra0NpjLExzUlG8V4IOydHyq9Ip@dpg-cn2ngv7sc6pc7394tnvg-a/db_nodejs_render',
-    });
-    const result = await pool.query('SELECT NOW()');
-    return result.rows[0];
   }
 }
